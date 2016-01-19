@@ -10,9 +10,16 @@ request('http://www.lemonde.fr', function (error, response, html) {
         var pageLinks = page.find('li');
         for (var i = 0; i < pageLinks.length; i++) {
         	var item = pageLinks[i] ;
+            //console.log($(item).html())
         	var h = $(item).find('.heure').text();
         	var txt = $(item).find('.texte').text();
-			console.log('📰  ' + h + ' : ' + txt);
+            var href = $(item).find('a').attr('href');
+            var dhref = '/' + $(item).find('[data-href]').attr('data-href');
+			console.log(
+                '📰  ' + h + ' : ' + txt 
+
+                + ' | href="http://www.lemonde.fr'+(href||dhref)+'"'
+                + '  color=' + (href ? 'green' : 'yellow') );
         };
       }
     });
